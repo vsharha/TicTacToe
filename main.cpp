@@ -2,11 +2,11 @@
 #include <vector>
 
 void draw_board() {
-    unsigned rows = 3, cols = 3;
+    size_t rows = 3, cols = 3;
     
-    for(unsigned i = 0; i < rows; i++) {
+    for(size_t i = 0; i < rows; i++) {
         std::cout << " ";
-        for(unsigned j = 0; j < cols; j++) {
+        for(size_t j = 0; j < cols; j++) {
             std::cout << "a";
 
             if(j != cols-1) {
@@ -15,7 +15,7 @@ void draw_board() {
         }
         if(i != rows-1) {
             std::cout << std::endl;
-            for(unsigned k = 0; k < 3*cols+cols-1; k++) {
+            for(size_t k = 0; k < 3*cols+cols-1; k++) {
                 std::cout << "-";
             }
         }
