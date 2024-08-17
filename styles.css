@@ -10,7 +10,7 @@
 	--def-color: gainsboro;
 	--X-color: rgb(239, 110, 110);
 	--O-color: rgb(113, 113, 198);
-	--win-color: rgb(255, 245, 110);
+	--win-color: rgb(82, 195, 96);
 }
 
 html {
@@ -71,8 +71,9 @@ button:hover {
 	border-radius: 5rem;
 	text-align: center;
 	margin: auto;
-	text-shadow: 0.2rem 0.2rem rgba(0, 0, 0, 0.5);
-	background: cadetblue;
+	text-shadow: 0.15rem 0.15rem rgba(0, 0, 0, 0.5);
+	background: rgb(82, 195, 96);
+	box-shadow: 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
 }
 
 .display-container {
