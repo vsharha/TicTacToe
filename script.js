@@ -1,6 +1,7 @@
 const buttons = document.querySelectorAll("#buttons button");
 const playerDisplay = document.querySelector("#player");
 const resultDisplay = document.querySelector("#result");
+const style = getComputedStyle(document.body);
 
 let buttonFontSize;
 const blank = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
@@ -8,6 +9,7 @@ const blank = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
 let ticTacToe = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
 let currentPlayer = "X";
 let result = "";
+let winPositions = [];
 
 let allowInput = true;
 
@@ -36,20 +38,18 @@ function handleInput(el) {
 
 	makeVisible(el);
 	changeXO(el);
-	syncButtonText();
 
 	if (isBoardFull()) {
 		result = "Draw";
 	}
 
-	positions = checkWin();
+	winPositions = checkWin();
 
-	if (positions) {
-		updatePlayerDisplay();
+	if (winPositions.length > 0) {
 		flipPlayer();
+		updatePlayerDisplay();
 
 		result = currentPlayer + " won";
-		highlightWin(positions);
 
 		allowInput = false;
 	}
@@ -57,6 +57,8 @@ function handleInput(el) {
 	if (result) {
 		syncResult();
 	}
+
+	syncButtonText();
 }
 
 function reset() {
@@ -65,8 +67,14 @@ function reset() {
 	result = "";
 	resultDisplay.style.display = "none";
 	allowInput = true;
+	winPositions = [];
 
+	updatePlayerDisplay();
 	syncButtonText();
+}
+
+function getCCScolor(varName) {
+	return style.getPropertyValue("--" + varName + "-color");
 }
 
 // syncing text
@@ -79,13 +87,15 @@ function syncButtonText() {
 		text = ticTacToe[i];
 		buttons[i].innerHTML = text;
 
-		if (text == "X") {
-			color = "rgb(239, 110, 110)";
+		if (winPositions.includes(i)) {
+			color = getCCScolor("win");
+		} else if (text == "X") {
+			color = getCCScolor("X");
 		} else if (text == "O") {
-			color = "rgb(113, 113, 198)";
+			color = getCCScolor("O");
 		} else {
 			buttons[i].style.fontSize = "0";
-			color = "gainsboro";
+			color = getCCScolor("def");
 		}
 
 		buttons[i].style.background = color;
@@ -98,17 +108,13 @@ function syncResult() {
 }
 
 function updatePlayerDisplay() {
-	playerDisplay.querySelector(".display").innerHTML = currentPlayer;
+	display = playerDisplay.querySelector(".display");
+	display.innerHTML = currentPlayer;
+	display.style.background = getCCScolor(currentPlayer);
 }
 
 function makeVisible(el) {
 	el.style.fontSize = buttonFontSize;
-}
-
-function highlightWin(positions) {
-	for (let pos of positions) {
-		buttons[pos].style.background = "rgb(231, 219, 48)";
-	}
 }
 
 // game
@@ -228,5 +234,6 @@ function checkWin() {
 		}
 	}
 
-	return false;
+	positions = [];
+	return positions;
 }

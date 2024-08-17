@@ -6,6 +6,11 @@
 	box-sizing: border-box;
 
 	font-family: "Signika Negative", sans-serif;
+
+	--def-color: gainsboro;
+	--X-color: rgb(239, 110, 110);
+	--O-color: rgb(113, 113, 198);
+	--win-color: rgb(255, 245, 110);
 }
 
 html {
@@ -44,7 +49,7 @@ html {
 
 #buttons button {
 	color: white;
-	background: rgb(231, 219, 48);
+	background: var(--default-color);
 	text-shadow: 0.15rem 0.15rem rgba(0, 0, 0, 0.5);
 	aspect-ratio: 1/1;
 	border: none;
@@ -67,7 +72,7 @@ button:hover {
 	text-align: center;
 	margin: auto;
 	text-shadow: 0.2rem 0.2rem rgba(0, 0, 0, 0.5);
-	background: rgb(125, 157, 69);
+	background: cadetblue;
 }
 
 .display-container {
@@ -111,7 +116,6 @@ button:hover {
 }
 
 #player .display {
-	background: cadetblue;
 	font-size: 5rem;
 	border-radius: 100%;
 	aspect-ratio: 1/1;
