@@ -9,6 +9,8 @@ let ticTacToe = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
 let currentPlayer = "X";
 let result = "";
 
+let allowInput = true;
+
 function onReady() {
 	updatePlayerDisplay();
 	syncButtonText();
@@ -26,15 +28,76 @@ function onReady() {
 
 window.onload = onReady;
 
+function handleInput(el) {
+	if (!allowInput) {
+		return;
+	}
+
+	makeVisible(el);
+	changeXO(el);
+	syncButtonText();
+
+	if (isBoardFull()) {
+		result = "Draw";
+	}
+
+	positions = checkWin();
+
+	if (positions) {
+		updatePlayerDisplay();
+		flipPlayer();
+
+		result = currentPlayer + " won";
+		highlightWin(positions);
+
+		allowInput = false;
+	}
+
+	if (result) {
+		syncResult();
+	}
+}
+
+function reset() {
+	ticTacToe = [...blank];
+	currentPlayer = "X";
+	result = "";
+	hideText();
+	resultDisplay.style.display = "none";
+	allowInput = true;
+
+	syncButtonText();
+}
+
+// syncing text
+
 function syncButtonText() {
+	let text;
+	let color;
+
 	for (let i = 0; i < buttons.length; i++) {
-		buttons[i].innerHTML = ticTacToe[i];
+		text = ticTacToe[i];
+		buttons[i].innerHTML = text;
+
+		if (text == "X") {
+			color = "rgb(239, 110, 110)";
+		} else if (text == "O") {
+			color = "rgb(113, 113, 198)";
+		} else {
+			color = "gainsboro";
+		}
+
+		buttons[i].style.background = color;
 	}
 }
 
 function syncResult() {
 	resultDisplay.querySelector(".display").innerHTML = result;
 	resultDisplay.style.display = "flex";
+}
+
+function updatePlayerDisplay() {
+	playerDisplay.querySelector(".display").innerHTML = currentPlayer;
 }
 
 function makeVisible(el) {
@@ -46,6 +109,14 @@ function hideText() {
 		button.style.fontSize = "0";
 	}
 }
+
+function highlightWin(positions) {
+	for (let pos of positions) {
+		buttons[pos].style.background = "rgb(231, 219, 48)";
+	}
+}
+
+// game
 
 function flipPlayer() {
 	if (currentPlayer == "X") {
@@ -72,20 +143,6 @@ function changeXO(el) {
 	updatePlayerDisplay();
 }
 
-function reset() {
-	ticTacToe = [...blank];
-	currentPlayer = "X";
-	result = "";
-	hideText();
-	resultDisplay.style.display = "none";
-
-	syncButtonText();
-}
-
-function updatePlayerDisplay() {
-	playerDisplay.innerHTML = currentPlayer;
-}
-
 function isBoardFull() {
 	let counter = 0;
 	for (let el of ticTacToe) {
@@ -100,6 +157,7 @@ function isBoardFull() {
 function checkWin() {
 	let counter;
 	let first;
+	let positions = [];
 
 	// check for any horizontal wins
 	for (let i = 0; i < 3; i++) {
@@ -109,15 +167,18 @@ function checkWin() {
 			continue;
 		}
 
-		for (let j = i * 3; j < (i + 1) * 3; j++) {
-			if (ticTacToe[j] != first) {
+		positions = [];
+		for (let pos = i * 3; pos < (i + 1) * 3; pos++) {
+			if (ticTacToe[pos] != first) {
 				break;
 			}
+
+			positions.push(pos);
 			counter++;
 		}
 
 		if (counter == 3) {
-			return true;
+			return positions;
 		}
 	}
 
@@ -129,15 +190,18 @@ function checkWin() {
 			continue;
 		}
 
-		for (let j = i; i < ticTacToe.length; j += 3) {
-			if (ticTacToe[j] != first) {
+		positions = [];
+		for (let pos = i; i < ticTacToe.length; pos += 3) {
+			if (ticTacToe[pos] != first) {
 				break;
 			}
+
+			positions.push(pos);
 			counter++;
 		}
 
 		if (counter == 3) {
-			return true;
+			return positions;
 		}
 	}
 
@@ -150,36 +214,24 @@ function checkWin() {
 		}
 		increment = 4 - i;
 
-		for (let j = i; j < ticTacToe.length; j += increment) {
-			if (ticTacToe[j] != first) {
+		positions = [];
+		for (let pos = i; pos < ticTacToe.length; pos += increment) {
+			if (i == 3 && pos == 8) {
+				continue;
+			}
+
+			if (ticTacToe[pos] != first) {
 				break;
 			}
+
+			positions.push(pos);
 			counter++;
 		}
 
 		if (counter == 3) {
-			return true;
+			return positions;
 		}
 	}
 
 	return false;
-}
-
-function handleInput(el) {
-	makeVisible(el);
-	changeXO(el);
-	syncButtonText();
-
-	if (isBoardFull()) {
-		result = "Draw";
-	}
-
-	if (checkWin()) {
-		flipPlayer();
-		result = currentPlayer + " won";
-	}
-
-	if (result) {
-		syncResult();
-	}
 }
