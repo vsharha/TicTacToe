@@ -9,7 +9,7 @@
 }
 
 html {
-	background: bisque;
+	background: linear-gradient(rgb(255, 199, 132), bisque);
 	background-attachment: fixed;
 }
 
@@ -28,8 +28,12 @@ html {
 	font-size: 3rem;
 }
 
-#buttons {
+#game {
+	margin: auto;
 	width: 50%;
+}
+
+#buttons {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	margin: 1rem auto;
@@ -45,7 +49,7 @@ html {
 	aspect-ratio: 1/1;
 	border: none;
 	border-radius: 0%;
-	font-size: 0px;
+	font-size: 4rem;
 }
 
 button:hover {
@@ -101,7 +105,7 @@ button:hover {
 	box-shadow: 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
 }
 
-.player-text {
+#player-text {
 	margin-top: 0.5rem;
 	font-size: 2rem;
 }
@@ -112,4 +116,42 @@ button:hover {
 	border-radius: 100%;
 	aspect-ratio: 1/1;
 	width: auto;
+}
+
+@media screen and (max-width: 576px) {
+	#content {
+		margin-top: 0%;
+		border-radius: 0rem 1rem 0rem 1rem;
+	}
+	#game {
+		width: 80%;
+	}
+	#title {
+		font-size: 5em;
+	}
+	.display-container {
+		font-size: 2.5rem;
+		width: 80%;
+		border-radius: 4rem;
+		padding: 2rem;
+	}
+	.display {
+		width: 80%;
+		margin-bottom: 1rem;
+	}
+	#buttons button {
+		font-size: 6rem;
+		text-shadow: 0.3rem 0.3rem rgba(0, 0, 0, 0.5);
+	}
+	#OK {
+		font-size: 4rem;
+		border-radius: 4rem;
+		padding: 1rem 2rem;
+	}
+	#player .display {
+		font-size: 8rem;
+	}
+	#player-text {
+		font-size: 5rem;
+	}
 }

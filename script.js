@@ -2,7 +2,7 @@ const buttons = document.querySelectorAll("#buttons button");
 const playerDisplay = document.querySelector("#player");
 const resultDisplay = document.querySelector("#result");
 
-const buttonFontSize = "4rem";
+let buttonFontSize;
 const blank = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
 
 let ticTacToe = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
@@ -13,6 +13,7 @@ let allowInput = true;
 
 function onReady() {
 	updatePlayerDisplay();
+	buttonFontSize = buttons[0].style.fontSize;
 	syncButtonText();
 	resultDisplay.querySelector("#OK").addEventListener("click", function () {
 		reset();
@@ -62,7 +63,6 @@ function reset() {
 	ticTacToe = [...blank];
 	currentPlayer = "X";
 	result = "";
-	hideText();
 	resultDisplay.style.display = "none";
 	allowInput = true;
 
@@ -84,6 +84,7 @@ function syncButtonText() {
 		} else if (text == "O") {
 			color = "rgb(113, 113, 198)";
 		} else {
+			buttons[i].style.fontSize = "0";
 			color = "gainsboro";
 		}
 
@@ -102,12 +103,6 @@ function updatePlayerDisplay() {
 
 function makeVisible(el) {
 	el.style.fontSize = buttonFontSize;
-}
-
-function hideText() {
-	for (let button of buttons) {
-		button.style.fontSize = "0";
-	}
 }
 
 function highlightWin(positions) {
