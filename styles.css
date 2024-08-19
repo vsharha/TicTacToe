@@ -114,6 +114,7 @@ button:hover {
 #player-text {
 	margin-top: 0.5rem;
 	font-size: 2rem;
+	font-weight: 700;
 }
 
 #player .display {
@@ -157,6 +158,7 @@ button:hover {
 		font-size: 8rem;
 	}
 	#player-text {
-		font-size: 5rem;
+		font-size: 4rem;
+		font-weight: 600;
 	}
 }
