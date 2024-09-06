@@ -11,6 +11,8 @@
 	--X-color: rgb(239, 110, 110);
 	--O-color: rgb(113, 113, 198);
 	--win-color: rgb(82, 195, 96);
+
+	--button-font-size: 4rem;
 }
 
 html {
@@ -54,7 +56,7 @@ header h1 {
 	aspect-ratio: 1/1;
 	border: none;
 	border-radius: 0%;
-	font-size: 4rem;
+	font-size: 0rem;
 }
 
 button:hover {
@@ -88,18 +90,37 @@ button:hover {
 }
 
 #result {
+	display: flex;
+	background: rgb(255, 255, 255);
+	margin-top: 20rem;
+}
+
+#result .display {
+	border: rem solid black;
+}
+
+#result-container {
+	height: 100%;
+	width: 100%;
 	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+
 	background: rgba(0, 0, 0, 0.2);
 }
 
 #OK {
-	background-color: aliceblue;
-	color: black;
+	background-color: rgb(175, 175, 175);
+	color: white;
+	text-shadow: 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
 	padding: 0.25rem 1rem;
 	margin: auto;
+	border: none;
 	font-size: large;
 	font-weight: bold;
-	border: none;
 	border-radius: 1rem;
 	box-shadow: 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
 	margin-top: 0.5rem;
@@ -125,6 +146,9 @@ button:hover {
 }
 
 @media screen and (max-width: 576px) {
+	* {
+		--button-font-size: 6rem;
+	}
 	#content {
 		margin-top: 0%;
 		border-radius: 0rem 1rem 0rem 1rem;
@@ -146,7 +170,6 @@ button:hover {
 		margin-bottom: 1rem;
 	}
 	#buttons button {
-		font-size: 6rem;
 		text-shadow: 0.3rem 0.3rem rgba(0, 0, 0, 0.5);
 	}
 	#OK {

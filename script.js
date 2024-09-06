@@ -1,5 +1,6 @@
 const buttons = document.querySelectorAll("#buttons button");
 const playerDisplay = document.querySelector("#player");
+const resultContainer = document.querySelector("#result-container");
 const resultDisplay = document.querySelector("#result");
 const style = getComputedStyle(document.body);
 
@@ -13,9 +14,13 @@ let winPositions = [];
 
 let allowInput = true;
 
+function getCSSvar(varName) {
+	return getComputedStyle(document.body).getPropertyValue("--" + varName);
+}
+
 function onReady() {
 	updatePlayerDisplay();
-	buttonFontSize = buttons[0].style.fontSize;
+	buttonFontSize = getCSSvar("button-font-size");
 	syncButtonText();
 	resultDisplay.querySelector("#OK").addEventListener("click", function () {
 		reset();
@@ -54,18 +59,18 @@ function handleInput(el) {
 		allowInput = false;
 	}
 
+	syncButtonText();
+
 	if (result) {
 		syncResult();
 	}
-
-	syncButtonText();
 }
 
 function reset() {
 	ticTacToe = [...blank];
 	currentPlayer = "X";
 	result = "";
-	resultDisplay.style.display = "none";
+	resultContainer.style.display = "none";
 	allowInput = true;
 	winPositions = [];
 
@@ -104,7 +109,7 @@ function syncButtonText() {
 
 function syncResult() {
 	resultDisplay.querySelector(".display").innerHTML = result;
-	resultDisplay.style.display = "flex";
+	resultContainer.style.display = "flex";
 }
 
 function updatePlayerDisplay() {
