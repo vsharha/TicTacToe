@@ -80,7 +80,6 @@ button:hover {
 }
 
 .display-container {
-	z-index: 1;
 	margin: auto;
 	display: flex;
 	flex-direction: column;
@@ -102,6 +101,7 @@ button:hover {
 }
 
 #result-container {
+	z-index: 1;
 	height: 100%;
 	width: 100%;
 	display: none;

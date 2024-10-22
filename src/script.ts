@@ -1,20 +1,25 @@
-const buttons = document.querySelectorAll("#buttons button");
-const playerDisplay = document.querySelector("#player");
-const resultContainer = document.querySelector("#result-container");
-const resultDisplay = document.querySelector("#result");
+const buttons = document.querySelectorAll(
+	"#buttons button"
+) as NodeListOf<HTMLElement>;
+const playerDisplay = document.querySelector("#player") as HTMLElement;
+const resultContainer = document.querySelector(
+	"#result-container"
+) as HTMLElement;
+const resultDisplay = document.querySelector("#result") as HTMLElement;
 const style = getComputedStyle(document.body);
 
-let buttonFontSize;
+let buttonFontSize: string;
 const blank = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
 
 let ticTacToe = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
 let currentPlayer = "X";
 let result = "";
-let winPositions = [];
+let winPositions: Array<number>;
+winPositions = [];
 
 let allowInput = true;
 
-function getCSSvar(varName) {
+function getCSSvar(varName: string) {
 	return getComputedStyle(document.body).getPropertyValue("--" + varName);
 }
 
@@ -27,7 +32,7 @@ function onReady() {
 	});
 
 	for (let i = 0; i < buttons.length; i++) {
-		buttons[i].setAttribute("id", i);
+		buttons[i].setAttribute("id", i.toString());
 		buttons[i].addEventListener("click", function () {
 			handleInput(this);
 		});
@@ -36,7 +41,7 @@ function onReady() {
 
 window.onload = onReady;
 
-function handleInput(el) {
+function handleInput(el: HTMLElement) {
 	if (!allowInput) {
 		return;
 	}
@@ -85,8 +90,8 @@ function getCCScolor(varName) {
 // syncing text
 
 function syncButtonText() {
-	let text;
-	let color;
+	let text: string;
+	let color: string;
 
 	for (let i = 0; i < buttons.length; i++) {
 		text = ticTacToe[i];
@@ -113,7 +118,7 @@ function syncResult() {
 }
 
 function updatePlayerDisplay() {
-	display = playerDisplay.querySelector(".display");
+	let display = playerDisplay.querySelector(".display") as HTMLElement;
 	display.innerHTML = currentPlayer;
 	display.style.background = getCCScolor(currentPlayer);
 }
@@ -137,7 +142,7 @@ function isXO(el) {
 }
 
 function changeXO(el) {
-	elID = Number(el.id);
+	let elID = Number(el.id);
 
 	if (isXO(ticTacToe[elID])) {
 		return;
@@ -218,7 +223,7 @@ function checkWin() {
 		if (!isXO(first)) {
 			continue;
 		}
-		increment = 4 - i;
+		let increment = 4 - i;
 
 		positions = [];
 		for (let pos = i; pos < ticTacToe.length; pos += increment) {
