@@ -75,6 +75,7 @@
 html {
 	background: linear-gradient(rgb(255, 199, 132), bisque);
 	background-attachment: fixed;
+	background-size: cover;
 }
 
 #content {
