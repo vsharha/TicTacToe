@@ -28,9 +28,16 @@
 	margin-top: 0.8rem;
 	color: black;
 	text-align: center;
-	font-size: 1.2rem;
+	font-size: 1.4rem;
 	width: 100%;
 	font-weight: 600;
+}
+
+.github p a,
+.github p a:visited {
+	color: rgb(62, 62, 255);
+	text-decoration: underline;
+	font-size: inherit;
 }
 
 .github a div:hover {
@@ -43,7 +50,7 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	background-color: black;
+	background-image: linear-gradient(black, rgb(53, 53, 53));
 	color: white;
 	text-align: center;
 	padding: 1.2rem;
@@ -212,6 +219,11 @@ button:hover {
 
 	#tictactoe {
 		height: 100svh;
+	}
+
+	.github div {
+		scale: 110%;
+		margin: 1rem 0;
 	}
 
 	#content {
